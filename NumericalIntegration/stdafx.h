@@ -14,4 +14,5 @@
 
 // TODO: reference additional headers your program requires here
 
-void DoCalculations(double lower_limit, double step_size, int count);
+void DoCalculationsAndPrintResults(double lower_limit, double step_size, int count);
+void FormatAndPrint(double value);
