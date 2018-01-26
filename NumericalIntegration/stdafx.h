@@ -9,7 +9,9 @@
 
 #include <stdio.h>
 #include <tchar.h>
-
+#include <vector>
 
 
 // TODO: reference additional headers your program requires here
+
+void DoCalculations(double lower_limit, double step_size, int count);
