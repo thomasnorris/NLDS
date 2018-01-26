@@ -37,7 +37,7 @@ int main()
 
 void DoCalculations(double a, double h, int count)
 {
-	// variable names came from the handout
+	// Variable names came from the handout
 	double b = a + h;
 	double firstPart = sin(a);
 	double secondPart = sin(((2 * a) + b) / 3);
@@ -53,7 +53,7 @@ void DoCalculations(double a, double h, int count)
 		DoCalculations(b, h, ++count);
 	else
 	{
-		cout << endl << "Calculations completed." << endl << "The end result is approximately: " << _total << endl << endl;
+		cout << endl << "Calculations completed." << endl << endl << "The end result is approximately: " << _total << endl << endl;
 		system("pause");
 	}
 }
