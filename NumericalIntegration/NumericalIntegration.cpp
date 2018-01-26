@@ -12,8 +12,7 @@ int _numSteps;
 double _total = 0;
 double _upperLimit = 0;
 double _lowerLimit = 0;
-
-void DoCalculationsAndPrintResults(double lower_limit, double step_size, int i);
+double _stepSize = 0;
 
 int main()
 {
@@ -25,21 +24,21 @@ int main()
 	cin >> _upperLimit;
 	cout << "Enter the number of steps to use: ";
 	cin >> _numSteps;
-	cout << endl << "A table of calculation data follows" << endl << endl;
 
-	double stepSize = (_upperLimit - _lowerLimit) / _numSteps;
+	_stepSize = (_upperLimit - _lowerLimit) / _numSteps;
 
-	cout << "The step size is " << stepSize << "." << endl << endl;
+	cout << "The step size is " << _stepSize << "." << endl << endl;
+	cout << endl << "A table of calculation data is shown below:" << endl << endl;
 
-	DoCalculationsAndPrintResults(_lowerLimit, stepSize, 0);
+	DoCalculationsAndPrintResults(_lowerLimit, 0);
 
 	return EXIT_SUCCESS;
 }
 
-void DoCalculationsAndPrintResults(double a, double h, int count)
+void DoCalculationsAndPrintResults(double a, int count)
 {
 	// Variable names came from the handout
-	double b = a + h;
+	double b = a + _stepSize;
 	double firstPart = sin(a);
 	double secondPart = sin(((2 * a) + b) / 3);
 	double thirdPart = sin((a + (2 * b)) / 3);
@@ -57,10 +56,10 @@ void DoCalculationsAndPrintResults(double a, double h, int count)
 	cout << endl;
 	
 	if (count != _numSteps - 1)
-		DoCalculationsAndPrintResults(b, h, ++count);
+		DoCalculationsAndPrintResults(b, ++count);
 	else
 	{
-		cout << endl << "Calculations completed." << endl << endl << "The value of the integration of Sin(x) with a lower limit of " << _lowerLimit << " and an upper limit of " << _upperLimit << " using " << _numSteps << " steps is approximately " << _total << "." << endl << endl;
+		cout << endl << "Calculations completed." << endl << endl << "The value of the integration of Sin(x) with a lower limit of " << _lowerLimit << " and an upper limit of " << _upperLimit << " using " << _numSteps << " step(s) is approximately " << _total << "." << endl << endl;
 		system("pause");
 	}
 }
