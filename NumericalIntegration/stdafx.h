@@ -14,5 +14,4 @@
 
 // TODO: reference additional headers your program requires here
 
-void DoCalculationsAndPrintResults(double lower_limit, int count);
-void FormatAndPrint(double value);
+#include "NumericalIntegration.h"
