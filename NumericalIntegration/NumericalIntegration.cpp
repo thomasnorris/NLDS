@@ -17,18 +17,19 @@ double _stepSize = 0;
 int main()
 {
 	cout << "This program will approximate the value of the integral of Sin(x) using Simpson's rule given a lower limit, upper limit, and number of steps that should be used." << endl;
+	cout << "Please enter only valid numbers." << endl << endl;
 
-	cout << "Enter the lower limit: ";
+	cout << "Enter the lower limit (integer or decimal): ";
 	cin >> _lowerLimit;
-	cout << "Enter the upper limit: ";
+	cout << "Enter the upper limit (integer or decimal): ";
 	cin >> _upperLimit;
-	cout << "Enter the number of steps to use: ";
+	cout << "Enter the number of steps to use (integer): ";
 	cin >> _numSteps;
 
 	_stepSize = (_upperLimit - _lowerLimit) / _numSteps;
 
-	cout << "The step size is " << _stepSize << "." << endl << endl;
-	cout << endl << "A table of calculation data is shown below:" << endl << endl;
+	cout << endl << "The step size is " << _stepSize << "." << endl << endl;
+	cout << "A table of calculation data is shown below:" << endl << endl;
 
 	DoCalculationsAndPrintResults(_lowerLimit, 0);
 
@@ -66,5 +67,5 @@ void DoCalculationsAndPrintResults(double a, int count)
 
 void FormatAndPrint(double value)
 {
-	cout << left << setprecision(5) << setw(10) << value;
+	cout << left << setprecision(4) << setw(12) << value;
 }
