@@ -38,12 +38,12 @@ int main()
 void DoCalculationsAndPrintResults(double a, int count)
 {
 	// Variable names came from the handout
-	double b = a + _stepSize;
-	double firstPart = sin(a);
-	double secondPart = sin(((2 * a) + b) / 3);
-	double thirdPart = sin((a + (2 * b)) / 3);
-	double fourthPart = sin(b);
-	double value = ((b - a) / 8) * (firstPart + (3 * secondPart) + (3 * thirdPart) + fourthPart);
+	auto b = a + _stepSize;
+	auto firstPart = sin(a);
+	auto secondPart = sin(((2 * a) + b) / 3);
+	auto thirdPart = sin((a + (2 * b)) / 3);
+	auto fourthPart = sin(b);
+	auto value = ((b - a) / 8) * (firstPart + (3 * secondPart) + (3 * thirdPart) + fourthPart);
 
 	_total += value;
 
