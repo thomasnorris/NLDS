@@ -2,13 +2,39 @@
 //
 
 #include "stdafx.h"
+#include "President.h"
 #include "cstdlib"
 #include <string>
 #include <iostream>
-#include "President.h"
+#include <fstream>
 using namespace std;
 
+const string INTPUT_FILE_NAME = "input.txt";
+const string OUTPUT_FILE_NAME = "output.txt";
+
 int main()
+{
+	LoadFile();
+    return 0;
+}
+
+void LoadFile()
+{
+	ifstream inputFile;
+	inputFile.open(INTPUT_FILE_NAME);
+	if (!inputFile.good())
+		cout << "There was an issue opening the file " << INTPUT_FILE_NAME << ". Please check the file and try again.";
+	else
+	{
+		string line;
+		while(getline(inputFile, line))
+		{
+			cout << line << endl;
+		}
+	}
+}
+
+void AddPresident()
 {
 	auto pres = President();
 	auto date = Date();
@@ -29,6 +55,5 @@ int main()
 	cin >> date.Year;
 
 	pres.DateInaugurated = date;
-    return 0;
 }
 

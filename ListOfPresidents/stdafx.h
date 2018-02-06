@@ -13,3 +13,6 @@
 
 
 // TODO: reference additional headers your program requires here
+
+void LoadFile();
+void AddPresident();
