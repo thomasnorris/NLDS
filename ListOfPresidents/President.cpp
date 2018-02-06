@@ -5,16 +5,6 @@ President::President()
 {
 }
 
-President::President(string firstName, string middleName, string lastName, Date dateInaugurated, Date dateResigned, string homeState)
-{
-	this->FirstName = firstName;
-	middleName != "" ? this->MiddleName = middleName : this->MiddleName = "N/A";
-	this->LastName = lastName;
-	this->DateInaugurated = dateInaugurated;
-	this->DateResigned = dateResigned;
-	this->HomeState = homeState;
-}
-
 President::~President()
 {
 	const string FILLER = "DELETED";

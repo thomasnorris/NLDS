@@ -7,14 +7,14 @@ Date::Date()
 
 Date::Date(string month, int day, int year)
 {
-	this->month = month;
-	this->day = day;
-	this->year = year;
+	this->Month = month;
+	this->Day = day;
+	this->Year = year;
 }
 
 Date::~Date()
 {
-	this->month = "DELETED";
-	this->day = 99;
-	this->year = 9999;
+	this->Month = "DELETED";
+	this->Day = 99;
+	this->Year = 9999;
 }

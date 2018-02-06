@@ -10,10 +10,8 @@ class President
 {
 public:
 	President();
-	President(string firstName, string middleName, string lastName, Date dateInaugurated, Date dateResigned, string homeState);
 	~President();
 
-private:
 	string FirstName;
 	string MiddleName;
 	string LastName;

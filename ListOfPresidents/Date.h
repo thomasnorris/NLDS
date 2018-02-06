@@ -12,10 +12,9 @@ public:
 	Date(string month, int day, int year);
 	~Date();
 
-private:
-	string month;
-	int day;
-	int year;
+	string Month;
+	int Day;
+	int Year;
 };
 
 #endif // DATE_H
