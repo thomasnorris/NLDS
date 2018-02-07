@@ -3,6 +3,7 @@
 
 #include "stdafx.h"
 #include "President.h"
+#include "ListOfPresidents.h"
 #include "cstdlib"
 #include <string>
 #include <iostream>
