@@ -23,10 +23,11 @@ const string PREVIOUS_COMMAND = "P";
 const string NEXT_COMMAND = "N";
 const string QUIT_COMMAND = "Q";
 
+vector<President> _presidents;
 
 int main()
 {
-	auto presidents = LoadFile();
+	LoadFile();
 
 	cout << "There are a number of commands that can be entered:" << endl;
 	cout << "\"" << LIST_COMMAND << "\" will list all of the presidents and their information." << endl;
@@ -41,35 +42,42 @@ int main()
 	{
 		cout << "Enter one of the commands and press \"Enter\": ";
 		cin >> command;
+
+		if (command == LIST_COMMAND)
+			cout << BuildPresidentList() << endl;
 	}
 
-    return 0;
-}
-
-void SaveFile(vector<President> presidents)
-{
 	ofstream outputFile;
 	outputFile.open(OUTPUT_FILE_NAME);
 
 	if (!outputFile.good())
 		DisplayFileError(OUTPUT_FILE_NAME);
 
-	for (auto pres : presidents)
-	{
-		outputFile << pres.FirstName << endl;
-		outputFile << pres.MiddleName << endl;
-		outputFile << pres.LastName << endl;
-		outputFile << pres.DateInaugurated.Month << " " << pres.DateInaugurated.Day << ", " << pres.DateInaugurated.Year << endl;
-		outputFile << pres.DateResigned.Month << " " << pres.DateResigned.Day << ", " << pres.DateResigned.Year << endl;
-		outputFile << pres.Party << endl;
-		outputFile << pres.HomeState << endl;
-	}
+	outputFile << BuildPresidentList();
 
 	cout << "File saved successfully." << endl;
-	system("wait");
+	system("pause");
+
+    return 0;
 }
 
-vector<President> LoadFile()
+string BuildPresidentList()
+{
+	string info;
+	for (auto pres : _presidents)
+	{
+		info += pres.FirstName + "\n";
+		info += pres.MiddleName + "\n";
+		info += pres.LastName + "\n";
+		info += pres.DateInaugurated.Month + " " + to_string(pres.DateInaugurated.Day) + ", " + to_string(pres.DateInaugurated.Year) + "\n";
+		info += pres.DateResigned.Month + " " + to_string(pres.DateResigned.Day) += ", " + to_string(pres.DateResigned.Year) + "\n";
+		info += pres.Party += "\n";
+		info += pres.HomeState += "\n";
+	}
+	return info;
+}
+
+void LoadFile()
 {
 	ifstream inputFile;
 	inputFile.open(INTPUT_FILE_NAME);
@@ -78,8 +86,6 @@ vector<President> LoadFile()
 		DisplayFileError(INTPUT_FILE_NAME);
 
 	string line;
-	vector<President> presidents;
-
 	while (getline(inputFile, line))
 	{
 		auto pres = President();
@@ -100,12 +106,10 @@ vector<President> LoadFile()
 		getline(inputFile, line);
 		pres.HomeState = line;
 
-		presidents.push_back(pres);
+		_presidents.push_back(pres);
 	}
 	
 	cout << "The file \"" << INTPUT_FILE_NAME << "\" has loaded successfully." << endl << endl;
-
-	return presidents;
 }
 
 void DisplayFileError(string fileName)
@@ -129,9 +133,7 @@ void AddPresident()
 	// TODO: finish
 	auto pres = President();
 	auto date = Date();
-
-	string middleName;
-
+	
 	cout << "Enter the first name: ";
 	cin >> pres.FirstName;
 	cout << "Enter the middle name (enter \"N/A\" if no middle name): ";
