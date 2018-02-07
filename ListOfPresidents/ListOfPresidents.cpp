@@ -46,15 +46,9 @@ void LoadFile()
 			pres.LastName = line;
 			getline(inputFile, line);
 
-			pres.DateInaugurated.Month = line.substr(0, line.find(SPACE_DELIMITER));
-			pres.DateInaugurated.Day = stoi(line.substr(line.find(SPACE_DELIMITER), line.find(COMMA_DELIMITER)));
-			pres.DateInaugurated.Year = stoi(line.substr(line.find(COMMA_DELIMITER) + 1, line.length()));
-
+			pres.DateInaugurated = FillPresidentialDates(pres.DateInaugurated, line);
 			getline(inputFile, line);
-
-			pres.DateResigned.Month = line.substr(0, line.find(SPACE_DELIMITER));
-			pres.DateResigned.Day = stoi(line.substr(line.find(SPACE_DELIMITER), line.find(COMMA_DELIMITER)));
-			pres.DateResigned.Year = stoi(line.substr(line.find(COMMA_DELIMITER) + 1, line.length()));
+			pres.DateResigned = FillPresidentialDates(pres.DateResigned, line);
 
 			getline(inputFile, line);
 			pres.Party = line;
@@ -64,6 +58,15 @@ void LoadFile()
 			presidents.push_back(pres);
 		}
 	}
+}
+
+Date FillPresidentialDates(Date date, string line)
+{
+	date.Month = line.substr(0, line.find(SPACE_DELIMITER));
+	date.Day = stoi(line.substr(line.find(SPACE_DELIMITER), line.find(COMMA_DELIMITER)));
+	date.Year = stoi(line.substr(line.find(COMMA_DELIMITER) + 1, line.length()));
+
+	return date;
 }
 
 void AddPresident()
