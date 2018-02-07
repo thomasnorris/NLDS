@@ -26,7 +26,7 @@ const string QUIT_COMMAND = "Q";
 
 int main()
 {
-	LoadFile();
+	auto presidents = LoadFile();
 
 	cout << "There are a number of commands that can be entered:" << endl;
 	cout << "\"" << LIST_COMMAND << "\" will list all of the presidents and their information." << endl;
@@ -39,52 +39,80 @@ int main()
 	string command;
 	while (command != QUIT_COMMAND)
 	{
-		
+		cout << "Enter one of the commands and press \"Enter\": ";
+		cin >> command;
 	}
 
     return 0;
 }
 
-void LoadFile()
+void SaveFile(vector<President> presidents)
+{
+	ofstream outputFile;
+	outputFile.open(OUTPUT_FILE_NAME);
+
+	if (!outputFile.good())
+		DisplayFileError(OUTPUT_FILE_NAME);
+
+	for (auto pres : presidents)
+	{
+		outputFile << pres.FirstName << endl;
+		outputFile << pres.MiddleName << endl;
+		outputFile << pres.LastName << endl;
+		outputFile << pres.DateInaugurated.Month << " " << pres.DateInaugurated.Day << ", " << pres.DateInaugurated.Year << endl;
+		outputFile << pres.DateResigned.Month << " " << pres.DateResigned.Day << ", " << pres.DateResigned.Year << endl;
+		outputFile << pres.Party << endl;
+		outputFile << pres.HomeState << endl;
+	}
+
+	cout << "File saved successfully." << endl;
+	system("wait");
+}
+
+vector<President> LoadFile()
 {
 	ifstream inputFile;
 	inputFile.open(INTPUT_FILE_NAME);
+
 	if (!inputFile.good())
+		DisplayFileError(INTPUT_FILE_NAME);
+
+	string line;
+	vector<President> presidents;
+
+	while (getline(inputFile, line))
 	{
-		cout << "There was an issue opening the file \"" << INTPUT_FILE_NAME << "\". Please check the file and try again." << endl << endl;
-		system("pause");
-		system("exit");
+		auto pres = President();
+
+		pres.FirstName = line;
+		getline(inputFile, line);
+		pres.MiddleName = line;
+		getline(inputFile, line);
+		pres.LastName = line;
+		getline(inputFile, line);
+
+		pres.DateInaugurated = FillDates(pres.DateInaugurated, line);
+		getline(inputFile, line);
+		pres.DateResigned = FillDates(pres.DateResigned, line);
+
+		getline(inputFile, line);
+		pres.Party = line;
+		getline(inputFile, line);
+		pres.HomeState = line;
+
+		presidents.push_back(pres);
 	}
-	else
-	{
-		string line;
-		vector<President> presidents;
+	
+	cout << "The file \"" << INTPUT_FILE_NAME << "\" has loaded successfully." << endl << endl;
 
-		while(getline(inputFile, line))
-		{
-			auto pres = President();
+	return presidents;
+}
 
-			pres.FirstName = line;
-			getline(inputFile, line);
-			pres.MiddleName = line;
-			getline(inputFile, line);
-			pres.LastName = line;
-			getline(inputFile, line);
-
-			pres.DateInaugurated = FillDates(pres.DateInaugurated, line);
-			getline(inputFile, line);
-			pres.DateResigned = FillDates(pres.DateResigned, line);
-
-			getline(inputFile, line);
-			pres.Party = line;
-			getline(inputFile, line);
-			pres.HomeState = line;
-
-			presidents.push_back(pres);
-		}
-
-		cout << "The file \"" << INTPUT_FILE_NAME << "\" has loaded successfully." << endl << endl;
-	}
+void DisplayFileError(string fileName)
+{
+	cout << "There was an issue opening the file \"" << fileName << "\". Please check the file and try again." << endl << endl;
+	system("pause");
+	_Exit(0);
 }
 
 Date FillDates(Date date, string line)
