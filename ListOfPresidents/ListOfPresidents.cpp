@@ -12,6 +12,7 @@
 #include <vector>
 #include <sstream>
 #include <iterator>
+#include <algorithm>
 using namespace std;
 
 const string INTPUT_FILE_NAME = "input.txt";
@@ -24,6 +25,8 @@ const string NEXT_COMMAND = "N";
 const string QUIT_COMMAND = "Q";
 
 vector<President> _presidents;
+
+
 
 int main()
 {
@@ -47,6 +50,17 @@ int main()
 			cout << BuildPresidentList() << endl;
 		else if (command == ADD_COMMAND)
 			AddPresident();
+		else if (command == FIND_STATE_COMMAND)
+		{
+			string state;
+			cout << "Enter a state to find all presidents from: ";
+			cin >> state;
+
+			FindPresidentsFromState(state);
+		}
+
+		else
+			cout << "Invalid command." << endl << endl;;
 	}
 
 	ofstream outputFile;
@@ -57,7 +71,7 @@ int main()
 
 	outputFile << BuildPresidentList();
 
-	cout << "File saved successfully." << endl;
+	cout << "File saved successfully." << endl << endl;;
 	system("pause");
 
     return 0;
@@ -132,7 +146,6 @@ Date FillDates(Date date, string line)
 
 void AddPresident()
 {
-	// TODO: finish
 	auto pres = President();
 	
 	cout << "Enter the first name: ";
@@ -161,5 +174,35 @@ void AddPresident()
 	_presidents.push_back(pres);
 
 	cout << "President " << pres.FirstName << " has been added." << endl << endl;
+}
+
+void FindPresidentsFromState(string state)
+{
+	vector<President> matches;
+
+	for (auto president : _presidents)
+		if (ConvertToUpperCase(president.HomeState) == ConvertToUpperCase(state))
+			matches.push_back(president);
+	
+	if (size(matches) == 0)
+		cout << "There no matching presidents were found for the state of \"" << state << "\"" << endl << endl;
+	else
+	{
+		cout << "There were " << size(matches) << " match(es) for state \"" << state << "\"" << endl;
+		cout << "Matches include: " << endl;
+
+		for (auto match : matches)
+		{
+			cout << match.FirstName << " ";
+			match.MiddleName == "" ? cout << match.LastName << endl : cout << match.MiddleName << " " << match.LastName << endl;
+		}
+		cout << endl;
+	}
+}
+
+string ConvertToUpperCase(string str)
+{
+	transform(str.begin(), str.end(), str.begin(), toupper);
+	return str;
 }
 
