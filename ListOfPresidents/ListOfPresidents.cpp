@@ -45,6 +45,8 @@ int main()
 
 		if (command == LIST_COMMAND)
 			cout << BuildPresidentList() << endl;
+		else if (command == ADD_COMMAND)
+			AddPresident();
 	}
 
 	ofstream outputFile;
@@ -132,7 +134,6 @@ void AddPresident()
 {
 	// TODO: finish
 	auto pres = President();
-	auto date = Date();
 	
 	cout << "Enter the first name: ";
 	cin >> pres.FirstName;
@@ -141,12 +142,24 @@ void AddPresident()
 	cout << "Enter the last name: ";
 	cin >> pres.LastName;
 	cout << "Enter the month of inauguration: ";
-	cin >> date.Month;
+	cin >> pres.DateInaugurated.Month;
 	cout << "Enter the day of inauguration (e.g. \"10\" for the 10th): ";
-	cin >> date.Day;
+	cin >> pres.DateInaugurated.Day;
 	cout << "Enter the year of inauguration (e.g. \"2001\"): ";
-	cin >> date.Year;
+	cin >> pres.DateInaugurated.Year;
+	cout << "Enter the month of resignation: ";
+	cin >> pres.DateResigned.Month;
+	cout << "Enter the day of resignation: ";
+	cin >> pres.DateResigned.Day;
+	cout << "Enter the year of resignation: ";
+	cin >> pres.DateResigned.Year;
+	cout << "Enter their political party: ";
+	cin >> pres.Party;
+	cout << "Enter their home state: ";
+	cin >> pres.HomeState;
 
-	pres.DateInaugurated = date;
+	_presidents.push_back(pres);
+
+	cout << "President " << pres.FirstName << " has been added." << endl << endl;
 }
 
