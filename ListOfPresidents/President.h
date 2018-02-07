@@ -17,6 +17,7 @@ public:
 	string LastName;
 	Date DateInaugurated;
 	Date DateResigned;
+	string Party;
 	string HomeState;
 };
 

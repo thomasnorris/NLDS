@@ -7,10 +7,16 @@
 #include <string>
 #include <iostream>
 #include <fstream>
+#include <list>
+#include <vector>
+#include <sstream>
+#include <iterator>
 using namespace std;
 
 const string INTPUT_FILE_NAME = "input.txt";
 const string OUTPUT_FILE_NAME = "output.txt";
+const char SPACE_DELIMITER = ' ';
+const char COMMA_DELIMITER = ',';
 
 int main()
 {
@@ -27,15 +33,42 @@ void LoadFile()
 	else
 	{
 		string line;
+		vector<President> presidents;
+
 		while(getline(inputFile, line))
 		{
-			cout << line << endl;
+			auto pres = President();
+
+			pres.FirstName = line;
+			getline(inputFile, line);
+			pres.MiddleName = line;
+			getline(inputFile, line);
+			pres.LastName = line;
+			getline(inputFile, line);
+
+			pres.DateInaugurated.Month = line.substr(0, line.find(SPACE_DELIMITER));
+			pres.DateInaugurated.Day = stoi(line.substr(line.find(SPACE_DELIMITER), line.find(COMMA_DELIMITER)));
+			pres.DateInaugurated.Year = stoi(line.substr(line.find(COMMA_DELIMITER) + 1, line.length()));
+
+			getline(inputFile, line);
+
+			pres.DateResigned.Month = line.substr(0, line.find(SPACE_DELIMITER));
+			pres.DateResigned.Day = stoi(line.substr(line.find(SPACE_DELIMITER), line.find(COMMA_DELIMITER)));
+			pres.DateResigned.Year = stoi(line.substr(line.find(COMMA_DELIMITER) + 1, line.length()));
+
+			getline(inputFile, line);
+			pres.Party = line;
+			getline(inputFile, line);
+			pres.HomeState = line;
+
+			presidents.push_back(pres);
 		}
 	}
 }
 
 void AddPresident()
 {
+	// TODO: finish
 	auto pres = President();
 	auto date = Date();
 
