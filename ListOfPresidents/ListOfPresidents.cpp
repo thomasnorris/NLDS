@@ -16,12 +16,32 @@ using namespace std;
 
 const string INTPUT_FILE_NAME = "input.txt";
 const string OUTPUT_FILE_NAME = "output.txt";
-const char SPACE_DELIMITER = ' ';
-const char COMMA_DELIMITER = ',';
+const string LIST_COMMAND = "L";
+const string ADD_COMMAND = "A";
+const string FIND_STATE_COMMAND = "F";
+const string PREVIOUS_COMMAND = "P";
+const string NEXT_COMMAND = "N";
+const string QUIT_COMMAND = "Q";
+
 
 int main()
 {
 	LoadFile();
+
+	cout << "There are a number of commands that can be entered:" << endl;
+	cout << "\"" << LIST_COMMAND << "\" will list all of the presidents and their information." << endl;
+	cout << "\"" << ADD_COMMAND << "\" will further prompt to add a president to the list." << endl;
+	cout << "\"" << FIND_STATE_COMMAND << "\" will further prompt to find all presidents that are from a certain state." << endl;
+	cout << "\"" << PREVIOUS_COMMAND << "\" will further prompt to find the previous president in the list from one entered." << endl;
+	cout << "\"" << NEXT_COMMAND << "\" will further prompt to find the next president in the list from one entered." << endl;
+	cout << "\"" << QUIT_COMMAND << "\" will save the information to " << OUTPUT_FILE_NAME << " and then exit." << endl << endl;
+
+	string command;
+	while (command != QUIT_COMMAND)
+	{
+		
+	}
+
     return 0;
 }
 
@@ -30,7 +50,11 @@ void LoadFile()
 	ifstream inputFile;
 	inputFile.open(INTPUT_FILE_NAME);
 	if (!inputFile.good())
-		cout << "There was an issue opening the file " << INTPUT_FILE_NAME << ". Please check the file and try again.";
+	{
+		cout << "There was an issue opening the file \"" << INTPUT_FILE_NAME << "\". Please check the file and try again." << endl << endl;
+		system("pause");
+		system("exit");
+	}
 	else
 	{
 		string line;
@@ -47,9 +71,9 @@ void LoadFile()
 			pres.LastName = line;
 			getline(inputFile, line);
 
-			pres.DateInaugurated = FillPresidentialDates(pres.DateInaugurated, line);
+			pres.DateInaugurated = FillDates(pres.DateInaugurated, line);
 			getline(inputFile, line);
-			pres.DateResigned = FillPresidentialDates(pres.DateResigned, line);
+			pres.DateResigned = FillDates(pres.DateResigned, line);
 
 			getline(inputFile, line);
 			pres.Party = line;
@@ -58,14 +82,16 @@ void LoadFile()
 
 			presidents.push_back(pres);
 		}
+
+		cout << "The file \"" << INTPUT_FILE_NAME << "\" has loaded successfully." << endl << endl;
 	}
 }
 
-Date FillPresidentialDates(Date date, string line)
+Date FillDates(Date date, string line)
 {
-	date.Month = line.substr(0, line.find(SPACE_DELIMITER));
-	date.Day = stoi(line.substr(line.find(SPACE_DELIMITER), line.find(COMMA_DELIMITER)));
-	date.Year = stoi(line.substr(line.find(COMMA_DELIMITER) + 1, line.length()));
+	date.Month = line.substr(0, line.find(' '));
+	date.Day = stoi(line.substr(line.find(' '), line.find(',')));
+	date.Year = stoi(line.substr(line.find(',') + 1, line.length()));
 
 	return date;
 }

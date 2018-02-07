@@ -3,4 +3,4 @@
 
 void LoadFile();
 void AddPresident();
-Date FillPresidentialDates(const Date date, const string cs);
+Date FillDates(const Date date, const string cs);
