@@ -28,22 +28,20 @@ const string PREVIOUS_KEYWORD = "Previous";
 
 vector<President> _presidents;
 
-
 int main()
 {
 	LoadFile();
 
-	cout << "There are a number of commands that can be entered:" << endl;
-	cout << "\"" << LIST_COMMAND << "\" will list all of the presidents and their information." << endl;
-	cout << "\"" << ADD_COMMAND << "\" will further prompt to add a president to the list." << endl;
-	cout << "\"" << FIND_STATE_COMMAND << "\" will further prompt to find all presidents that are from a certain state." << endl;
-	cout << "\"" << PREVIOUS_COMMAND << "\" will further prompt to find the previous president in the list from one entered." << endl;
-	cout << "\"" << NEXT_COMMAND << "\" will further prompt to find the next president in the list from one entered." << endl;
-	cout << "\"" << QUIT_COMMAND << "\" will save the information to " << OUTPUT_FILE_NAME << " and then exit." << endl << endl;
-
 	string command;
 	while (command != QUIT_COMMAND)
 	{
+		cout << "There are a number of commands that can be entered:" << endl;
+		cout << "\"" << LIST_COMMAND << "\" will list all of the presidents and their information." << endl;
+		cout << "\"" << ADD_COMMAND << "\" will further prompt to add a president to the list." << endl;
+		cout << "\"" << FIND_STATE_COMMAND << "\" will further prompt to find all presidents that are from a certain state." << endl;
+		cout << "\"" << PREVIOUS_COMMAND << "\" will further prompt to find the previous president in the list from one entered." << endl;
+		cout << "\"" << NEXT_COMMAND << "\" will further prompt to find the next president in the list from one entered." << endl;
+		cout << "\"" << QUIT_COMMAND << "\" will save the information to " << OUTPUT_FILE_NAME << " and then exit." << endl << endl;
 		cout << "Enter one of the commands and press \"Enter\": ";
 		cin >> command;
 
@@ -52,28 +50,14 @@ int main()
 		else if (command == ADD_COMMAND)
 			AddPresident();
 		else if (command == FIND_STATE_COMMAND)
-		{
-			string state;
-			cout << "Enter a state to find all presidents from: ";
-			cin >> state;
-
-			FindPresidentsFromState(state);
-		}
+			FindPresidentsFromState();
 		else if (command == PREVIOUS_COMMAND)
-		{
-			President pres = President();
-			cout << "Enter the president's first name: ";
-			cin >> pres.FirstName;
-			cout << "Enter the president's middle name (enter \"N/A\" if no middle name): ";
-			cin >> pres.MiddleName;
-			cout << "Enter the president's last name: ";
-			cin >> pres.LastName;
-			
-			cout << FindPresident(pres, PREVIOUS_KEYWORD);
-		}
+			cout << FindPresident(PREVIOUS_KEYWORD) << endl;
+		else if (command == NEXT_COMMAND)
+			cout << FindPresident(NEXT_KEYWORD) << endl;
 
 		else
-			cout << "Invalid command." << endl << endl;;
+			cout << "Invalid command." << endl << endl;
 	}
 
 	ofstream outputFile;
@@ -84,26 +68,45 @@ int main()
 
 	outputFile << GetAllPresidentInfo();
 
-	cout << "File saved successfully." << endl << endl;;
+	cout << "File saved successfully." << endl << endl;
 	system("pause");
 
     return 0;
 }
 
-string FindPresident(President pres, string keyword)
+string FindPresident(string keyword)
 {
+	President presToFind = President();
+
+	cout << "Enter the president's first name: ";
+	cin >> presToFind.FirstName;
+	cout << "Enter the president's middle name (enter \"N/A\" if no middle name): ";
+	cin >> presToFind.MiddleName;
+	cout << "Enter the president's last name: ";
+	cin >> presToFind.LastName;
+
 	int i = 0;
-	for (auto president : _presidents)
+	for (auto pres : _presidents)
 	{
-		if ((ConvertToUpperCase(pres.FirstName) == ConvertToUpperCase(president.FirstName)) && (ConvertToUpperCase(pres.MiddleName) == ConvertToUpperCase(president.MiddleName) || pres.MiddleName == "N/A" || president.MiddleName == "") && (ConvertToUpperCase(pres.LastName) == ConvertToUpperCase(president.LastName)))
+		if ((ConvertToUpperCase(presToFind.FirstName) == ConvertToUpperCase(pres.FirstName)) && (ConvertToUpperCase(presToFind.MiddleName) == ConvertToUpperCase(pres.MiddleName) || presToFind.MiddleName == "N/A" || pres.MiddleName == "") && (ConvertToUpperCase(presToFind.LastName) == ConvertToUpperCase(pres.LastName)))
 		{
 			if (keyword == PREVIOUS_KEYWORD)
-				return ConvertPresidentIntoString(_presidents[i - 1]);
+			{
+				if (i == 0)
+					return "There is no previous president.\n";
+				
+				return "The previous president is:\n" + ConvertPresidentIntoString(_presidents[i - 1]);
+			}
 
-			return ConvertPresidentIntoString(_presidents[i + 1]);
+			if (i == _presidents.size())
+				return "There is no next president.\n";
+
+			return "The next president is:\n" + ConvertPresidentIntoString(_presidents[i + 1]);
 		}
 		++i;
 	}
+
+	return "President \"" + presToFind.FirstName + "\" was not found; cannot perform comparison.\n";
 }
 
 string GetAllPresidentInfo()
@@ -190,7 +193,7 @@ void AddPresident()
 	cin >> pres.MiddleName;
 	cout << "Enter the last name: ";
 	cin >> pres.LastName;
-	cout << "Enter the month of inauguration: ";
+	cout << "Enter the month of inauguration (e.g. March): ";
 	cin >> pres.DateInaugurated.Month;
 	cout << "Enter the day of inauguration (e.g. \"10\" for the 10th): ";
 	cin >> pres.DateInaugurated.Day;
@@ -212,8 +215,12 @@ void AddPresident()
 	cout << "President " << pres.FirstName << " has been added." << endl << endl;
 }
 
-void FindPresidentsFromState(string state)
+void FindPresidentsFromState()
 {
+	string state;
+	cout << "Enter a state to find all presidents from: ";
+	cin >> state;
+
 	vector<President> matches;
 
 	for (auto president : _presidents)
