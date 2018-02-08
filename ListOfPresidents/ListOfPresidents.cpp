@@ -23,9 +23,10 @@ const string FIND_STATE_COMMAND = "F";
 const string PREVIOUS_COMMAND = "P";
 const string NEXT_COMMAND = "N";
 const string QUIT_COMMAND = "Q";
+const string NEXT_KEYWORD = "Next";
+const string PREVIOUS_KEYWORD = "Previous";
 
 vector<President> _presidents;
-
 
 
 int main()
@@ -47,7 +48,7 @@ int main()
 		cin >> command;
 
 		if (command == LIST_COMMAND)
-			cout << BuildPresidentList() << endl;
+			cout << GetAllPresidentInfo() << endl;
 		else if (command == ADD_COMMAND)
 			AddPresident();
 		else if (command == FIND_STATE_COMMAND)
@@ -57,6 +58,18 @@ int main()
 			cin >> state;
 
 			FindPresidentsFromState(state);
+		}
+		else if (command == PREVIOUS_COMMAND)
+		{
+			President pres = President();
+			cout << "Enter the president's first name: ";
+			cin >> pres.FirstName;
+			cout << "Enter the president's middle name (enter \"N/A\" if no middle name): ";
+			cin >> pres.MiddleName;
+			cout << "Enter the president's last name: ";
+			cin >> pres.LastName;
+			
+			cout << FindPresident(pres, PREVIOUS_KEYWORD);
 		}
 
 		else
@@ -69,7 +82,7 @@ int main()
 	if (!outputFile.good())
 		DisplayFileError(OUTPUT_FILE_NAME);
 
-	outputFile << BuildPresidentList();
+	outputFile << GetAllPresidentInfo();
 
 	cout << "File saved successfully." << endl << endl;;
 	system("pause");
@@ -77,20 +90,43 @@ int main()
     return 0;
 }
 
-string BuildPresidentList()
+string FindPresident(President pres, string keyword)
+{
+	int i = 0;
+	for (auto president : _presidents)
+	{
+		if ((ConvertToUpperCase(pres.FirstName) == ConvertToUpperCase(president.FirstName)) && (ConvertToUpperCase(pres.MiddleName) == ConvertToUpperCase(president.MiddleName) || pres.MiddleName == "N/A" || president.MiddleName == "") && (ConvertToUpperCase(pres.LastName) == ConvertToUpperCase(president.LastName)))
+		{
+			if (keyword == PREVIOUS_KEYWORD)
+				return ConvertPresidentIntoString(_presidents[i - 1]);
+
+			return ConvertPresidentIntoString(_presidents[i + 1]);
+		}
+		++i;
+	}
+}
+
+string GetAllPresidentInfo()
 {
 	string info;
 	for (auto pres : _presidents)
-	{
-		info += pres.FirstName + "\n";
-		info += pres.MiddleName + "\n";
-		info += pres.LastName + "\n";
-		info += pres.DateInaugurated.Month + " " + to_string(pres.DateInaugurated.Day) + ", " + to_string(pres.DateInaugurated.Year) + "\n";
-		info += pres.DateResigned.Month + " " + to_string(pres.DateResigned.Day) += ", " + to_string(pres.DateResigned.Year) + "\n";
-		info += pres.Party += "\n";
-		info += pres.HomeState += "\n";
-	}
+		info += ConvertPresidentIntoString(pres);
+	
 	return info;
+}
+
+string ConvertPresidentIntoString(President pres)
+{
+	string presString;
+	presString += pres.FirstName + "\n";
+	presString += pres.MiddleName + "\n";
+	presString += pres.LastName + "\n";
+	presString += pres.DateInaugurated.Month + " " + to_string(pres.DateInaugurated.Day) + ", " + to_string(pres.DateInaugurated.Year) + "\n";
+	presString += pres.DateResigned.Month + " " + to_string(pres.DateResigned.Day) += ", " + to_string(pres.DateResigned.Year) + "\n";
+	presString += pres.Party += "\n";
+	presString += pres.HomeState += "\n";
+
+	return presString;
 }
 
 void LoadFile()
@@ -150,7 +186,7 @@ void AddPresident()
 	
 	cout << "Enter the first name: ";
 	cin >> pres.FirstName;
-	cout << "Enter the middle name (enter \"N/A\" if no middle name): ";
+	cout << "Enter the middle name (Enter \"N/A\" if no middle name): ";
 	cin >> pres.MiddleName;
 	cout << "Enter the last name: ";
 	cin >> pres.LastName;
