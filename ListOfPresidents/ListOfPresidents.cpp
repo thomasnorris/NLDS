@@ -25,6 +25,7 @@ const string NEXT_COMMAND = "N";
 const string QUIT_COMMAND = "Q";
 const string NEXT_KEYWORD = "Next";
 const string PREVIOUS_KEYWORD = "Previous";
+const string NO_MIDDLE_NAME = "N/A";
 
 vector<President> _presidents;
 
@@ -87,7 +88,7 @@ string FindPresident(string keyword)
 
 	cout << "Enter the president's first name: ";
 	cin >> presToFind.FirstName;
-	cout << "Enter the president's middle name (enter \"N/A\" if no middle name): ";
+	cout << "Enter the president's middle name (enter " << NO_MIDDLE_NAME << " if no middle name): ";
 	cin >> presToFind.MiddleName;
 	cout << "Enter the president's last name: ";
 	cin >> presToFind.LastName;
@@ -95,7 +96,7 @@ string FindPresident(string keyword)
 	int i = 0;
 	for (auto pres : _presidents)
 	{
-		if ((ConvertToUpperCase(presToFind.FirstName) == ConvertToUpperCase(pres.FirstName)) && (ConvertToUpperCase(presToFind.MiddleName) == ConvertToUpperCase(pres.MiddleName) || ConvertToUpperCase(presToFind.MiddleName) == "N/A" || pres.MiddleName == "") && (ConvertToUpperCase(presToFind.LastName) == ConvertToUpperCase(pres.LastName)))
+		if ((ConvertToUpperCase(presToFind.FirstName) == ConvertToUpperCase(pres.FirstName)) && (ConvertToUpperCase(presToFind.MiddleName) == ConvertToUpperCase(pres.MiddleName) || ConvertToUpperCase(presToFind.MiddleName) == NO_MIDDLE_NAME || pres.MiddleName == "") && (ConvertToUpperCase(presToFind.LastName) == ConvertToUpperCase(pres.LastName)))
 		{
 			// --Previous and next presidents are found under the assumption that the oldest president is at the beginning of the file and newest presidents are at the end.
 			if (keyword == PREVIOUS_KEYWORD)
@@ -103,13 +104,13 @@ string FindPresident(string keyword)
 				if (i == 0)
 					return "There is no previous president.\n";
 				
-				return "The previous president is:\n" + ConvertPresidentIntoString(_presidents[i + 1]);
+				return "The previous president is:\n" + ConvertPresidentIntoString(_presidents[i - 1]);
 			}
 			
 			if (i == _presidents.size() - 1)
 				return "There is no next president.\n";
 
-			return "The next president is:\n" + ConvertPresidentIntoString(_presidents[i - 1]);
+			return "The next president is:\n" + ConvertPresidentIntoString(_presidents[i + 1]);
 		}
 		++i;
 	}
@@ -197,7 +198,7 @@ void AddPresident()
 	
 	cout << "Enter the first name: ";
 	cin >> pres.FirstName;
-	cout << "Enter the middle name (Enter \"N/A\" if no middle name): ";
+	cout << "Enter the middle name (Enter " << NO_MIDDLE_NAME << " if no middle name): ";
 	cin >> pres.MiddleName;
 	cout << "Enter the last name: ";
 	cin >> pres.LastName;
