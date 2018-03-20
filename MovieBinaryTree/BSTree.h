@@ -43,8 +43,7 @@ public:
 	BSTree();
 	~BSTree();
 
-	void Insert(string title = "", string rating = "", string url = "", int year = 0000, int runTime = 0,
-		MovieNode* left = nullptr, MovieNode* right = nullptr, MovieNode* parent = nullptr);
+	void Insert(MovieNode* newNode);
 	void Remove() {};
 	void ReadFromFile() {};
 	void WriteToFile() {};
@@ -52,5 +51,6 @@ public:
 	void Delete() {};
 private:
 protected:
+	MovieNode* Root;
 };
 

@@ -97,6 +97,7 @@ void BSTree::MovieNode::SetParentNode(MovieNode* parentNode)
 
 BSTree::BSTree()
 {
+	this->Root = nullptr;
 }
 
 
@@ -104,8 +105,8 @@ BSTree::~BSTree()
 {
 }
 
-void BSTree::Insert(string title, string rating, string url, int year, int runTime, MovieNode* leftNode, MovieNode* rightNode,
-	MovieNode* parentNode)
+void BSTree::Insert(MovieNode* newNode)
 {
-	MovieNode* newMovie = new MovieNode(title, rating, url, year, runTime, leftNode, rightNode, parentNode);
+	if (this->Root == nullptr)
+		this->Root = newNode;
 }
