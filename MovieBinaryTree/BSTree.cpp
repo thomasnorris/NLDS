@@ -2,8 +2,8 @@
 #include "BSTree.h"
 
 
-BSTree::MovieNode::MovieNode(string title, string rating, string url, int year, int runTime, MovieNode* left,
-	MovieNode* right, MovieNode* parent)
+BSTree::MovieNode::MovieNode(string title, string rating, string url, int year, int runTime, MovieNode *left,
+	MovieNode *right, MovieNode *parent)
 {
 	this->Title = title;
 	this->Rating = rating;
@@ -22,4 +22,10 @@ BSTree::BSTree()
 
 BSTree::~BSTree()
 {
+}
+
+void BSTree::Insert(string title, string rating, string url, int year, int runTime, MovieNode* left, MovieNode* right,
+	MovieNode* parent)
+{
+	MovieNode *newMovie = new MovieNode(title, rating, url, year, runTime, left, right, parent);
 }
