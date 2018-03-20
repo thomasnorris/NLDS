@@ -15,6 +15,46 @@ BSTree::MovieNode::MovieNode(string title, string rating, string url, int year, 
 	this->Parent = parent;
 }
 
+string BSTree::MovieNode::GetTitle()
+{
+	return this->Title;
+}
+
+string BSTree::MovieNode::GetRating()
+{
+	return this->Rating;
+}
+
+string BSTree::MovieNode::GetUrl()
+{
+	return this->Url;
+}
+
+int BSTree::MovieNode::GetYear()
+{
+	return this->Year;
+}
+
+int BSTree::MovieNode::GetRunTime()
+{
+	return this->RunTime;
+}
+
+BSTree::MovieNode* BSTree::MovieNode::GetLeftNode()
+{
+	return this->Left;
+}
+
+BSTree::MovieNode* BSTree::MovieNode::GetRightNode()
+{
+	return this->Right;
+}
+
+BSTree::MovieNode* BSTree::MovieNode::GetParentNode()
+{
+	return this->Parent;
+}
+
 BSTree::BSTree()
 {
 }
