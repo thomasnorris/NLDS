@@ -3,6 +3,8 @@
 
 #include "stdafx.h"
 #include "BSTree.h"
+#include <iostream>
+using namespace std;
 
 int main()
 {
