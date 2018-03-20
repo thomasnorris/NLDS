@@ -9,7 +9,7 @@ public:
 	{
 	public:
 		MovieNode(string title = "", string rating = "", string url = "", int year = 0000, int runTime = 0,
-		          MovieNode *left = nullptr, MovieNode *right = nullptr, MovieNode *parent = nullptr);
+		          MovieNode* leftNode = nullptr, MovieNode* rightNode = nullptr, MovieNode* parentNode = nullptr);
 		~MovieNode() {};
 		// --Getters
 		string GetTitle();
@@ -17,9 +17,9 @@ public:
 		string GetUrl();
 		int GetYear();
 		int GetRunTime();
-		MovieNode *GetLeftNode();
-		MovieNode *GetRightNode();
-		MovieNode *GetParentNode();
+		MovieNode* GetLeftNode();
+		MovieNode* GetRightNode();
+		MovieNode* GetParentNode();
 	private:
 	protected:
 		string Title;
@@ -27,15 +27,15 @@ public:
 		string Url;
 		int Year;
 		int RunTime;
-		MovieNode *Left;
-		MovieNode *Right;
-		MovieNode *Parent;
+		MovieNode* LeftNode;
+		MovieNode* RightNode;
+		MovieNode* ParentNode;
 	};
 	BSTree();
 	~BSTree();
 
 	void Insert(string title = "", string rating = "", string url = "", int year = 0000, int runTime = 0,
-		MovieNode *left = nullptr, MovieNode *right = nullptr, MovieNode *parent = nullptr);
+		MovieNode* left = nullptr, MovieNode* right = nullptr, MovieNode* parent = nullptr);
 	void Remove() {};
 	void ReadFromFile() {};
 	void WriteToFile() {};

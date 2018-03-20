@@ -2,17 +2,17 @@
 #include "BSTree.h"
 
 
-BSTree::MovieNode::MovieNode(string title, string rating, string url, int year, int runTime, MovieNode *left,
-	MovieNode *right, MovieNode *parent)
+BSTree::MovieNode::MovieNode(string title, string rating, string url, int year, int runTime, MovieNode* leftNode,
+	MovieNode* rightNode, MovieNode* parentNode)
 {
 	this->Title = title;
 	this->Rating = rating;
 	this->Url = url;
 	this->Year = year;
 	this->RunTime = runTime;
-	this->Left = left;
-	this->Right = right;
-	this->Parent = parent;
+	this->LeftNode = leftNode;
+	this->RightNode = rightNode;
+	this->ParentNode = parentNode;
 }
 
 string BSTree::MovieNode::GetTitle()
@@ -42,17 +42,17 @@ int BSTree::MovieNode::GetRunTime()
 
 BSTree::MovieNode* BSTree::MovieNode::GetLeftNode()
 {
-	return this->Left;
+	return this->LeftNode;
 }
 
 BSTree::MovieNode* BSTree::MovieNode::GetRightNode()
 {
-	return this->Right;
+	return this->RightNode;
 }
 
 BSTree::MovieNode* BSTree::MovieNode::GetParentNode()
 {
-	return this->Parent;
+	return this->ParentNode;
 }
 
 BSTree::BSTree()
@@ -64,8 +64,8 @@ BSTree::~BSTree()
 {
 }
 
-void BSTree::Insert(string title, string rating, string url, int year, int runTime, MovieNode *left, MovieNode *right,
-	MovieNode *parent)
+void BSTree::Insert(string title, string rating, string url, int year, int runTime, MovieNode* leftNode, MovieNode* rightNode,
+	MovieNode* parentNode)
 {
-	MovieNode *newMovie = new MovieNode(title, rating, url, year, runTime, left, right, parent);
+	MovieNode* newMovie = new MovieNode(title, rating, url, year, runTime, leftNode, rightNode, parentNode);
 }
