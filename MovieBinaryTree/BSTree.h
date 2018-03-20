@@ -4,34 +4,27 @@ using namespace std;
 
 class BSTree
 {
+public:
 	class MovieNode
 	{
 	public:
-		MovieNode()
-		{
-			this->Title = "";
-			this->Rating = "";
-			this->URL = "";
-			this->Year = 0000;
-			this->RunTime = 00;
-			this->Left = nullptr;
-			this->Right = nullptr;
-			this->Parent = nullptr;
-		}
+		MovieNode(string title = "", string rating = "", string url = "", int year = 0000, int runTime = 0,
+		          MovieNode* left = nullptr, MovieNode* right = nullptr, MovieNode* parent = nullptr);
 		~MovieNode() {};
 	private:
 	protected:
 		string Title;
 		string Rating;
-		string URL;
+		string Url;
 		int Year;
 		int RunTime;
 		MovieNode *Left;
 		MovieNode *Right;
 		MovieNode *Parent;
 	};
-public:
 	BSTree();
 	~BSTree();
+private:
+protected:
 };
 
