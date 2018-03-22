@@ -107,6 +107,16 @@ BSTree::~BSTree()
 
 void BSTree::Insert(MovieNode* newNode)
 {
+	MovieNode* currentNode;
+	auto inserted = false;
+
 	if (this->Root == nullptr)
 		this->Root = newNode;
+	else
+		currentNode = this->Root;
+	
+	while (!inserted)
+	{
+		
+	}
 }
