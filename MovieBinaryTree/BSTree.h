@@ -51,9 +51,12 @@ public:
 	void Insert(MovieNode* newNode);
 	void Remove(MovieNode* nodeToRemove);
 	void Search(MovieNode* nodeToFind);
-	void GetNodesInOrder();
+	MovieNode* GetRoot();
+	vector<MovieNode*> GetOrderedListOfNodes();
 private:
 protected:
+	void TraverseInOrder(MovieNode* node);
 	MovieNode* Root;
+	vector<MovieNode*> InOrderNodeList;
 };
 

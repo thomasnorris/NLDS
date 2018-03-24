@@ -2,7 +2,6 @@
 #include "BSTree.h"
 #include <iostream>
 
-
 BSTree::MovieNode::MovieNode(string title, string rating, string url, int year, int runTime, MovieNode* leftNode,
 	MovieNode* rightNode, MovieNode* parentNode)
 {
@@ -182,10 +181,25 @@ void BSTree::Search(MovieNode* nodeToFind)
 {
 }
 
-void BSTree::GetNodesInOrder()
+BSTree::MovieNode* BSTree::GetRoot()
 {
-	if (this->Root == nullptr)
-		throw exception("The tree is empty.");
-
-
+	return this->Root;
 }
+
+vector<BSTree::MovieNode*> BSTree::GetOrderedListOfNodes()
+{
+	TraverseInOrder(this->Root);
+	return this->InOrderNodeList;
+}
+
+void BSTree::TraverseInOrder(MovieNode* node)
+{
+	if (node == nullptr)
+		return;
+	
+	this->TraverseInOrder(node->GetLeftNode());
+	this->InOrderNodeList.push_back(node);
+	this->TraverseInOrder(node->GetRightNode());
+}
+
+

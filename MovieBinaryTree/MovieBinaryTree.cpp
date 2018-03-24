@@ -23,7 +23,9 @@ int main()
 	{
 		tree->Insert(movie);
 	}
-	
+
+	auto list = tree->GetOrderedListOfNodes();
+
     return 0;
 }
 
