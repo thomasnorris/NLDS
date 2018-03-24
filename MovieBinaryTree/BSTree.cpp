@@ -95,6 +95,31 @@ void BSTree::MovieNode::SetParentNode(MovieNode* parentNode)
 	this->ParentNode = parentNode;
 }
 
+bool BSTree::MovieNode::operator==(MovieNode& rhs)
+{
+	return ((this->Title == rhs.Title) && (this->Year == rhs.Year));
+}
+
+bool BSTree::MovieNode::operator<(MovieNode& rhs)
+{
+	if (this->Title < rhs.Title)
+		return true;
+	else if (this->Title == rhs.Title)
+		return this->Year < rhs.Year;
+	
+	return false;
+}
+
+bool BSTree::MovieNode::operator>(MovieNode& rhs)
+{
+	if (this->Title > rhs.Title)
+		return true;
+	else if (this->Title == rhs.Title)
+		return this->Year > rhs.Year;
+	
+	return false;
+}
+
 BSTree::BSTree()
 {
 	this->Root = nullptr;

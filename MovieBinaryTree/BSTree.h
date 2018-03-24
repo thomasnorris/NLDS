@@ -29,6 +29,10 @@ public:
 		void SetLeftNode(MovieNode* leftNode = nullptr);
 		void SetRightNode(MovieNode* rightNode = nullptr);
 		void SetParentNode(MovieNode* parentNode = nullptr);
+		// --Operator overloads
+		bool operator == (MovieNode& rhs);
+		bool operator < (MovieNode& rhs);
+		bool operator > (MovieNode& rhs);
 	private:
 	protected:
 		string Title;
