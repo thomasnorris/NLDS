@@ -128,11 +128,16 @@ BSTree::BSTree()
 
 BSTree::~BSTree()
 {
+	if (this->Root != nullptr)
+	{
+		delete this->Root;
+		this->Root = nullptr;
+	}
 }
 
 void BSTree::Insert(MovieNode* newNode)
 {
-	MovieNode* currentNode;
+	MovieNode* currentNode = new MovieNode();
 	auto inserted = false;
 
 	if (this->Root == nullptr)
@@ -142,6 +147,25 @@ void BSTree::Insert(MovieNode* newNode)
 	
 	while (!inserted)
 	{
-		
+		if (*newNode < *currentNode)
+		{
+			if (currentNode->GetLeftNode() == nullptr)
+			{
+				currentNode->SetLeftNode(newNode);
+				newNode->SetParentNode(currentNode);
+				inserted = true;
+			}
+			else
+				currentNode = currentNode->GetLeftNode();
+		}
+		else
+			if (currentNode->GetRightNode() == nullptr)
+			{
+				currentNode->SetRightNode(newNode);
+				newNode->SetParentNode(currentNode);
+				inserted = true;
+			}
+			else
+				currentNode = currentNode->GetRightNode();
 	}
 }
