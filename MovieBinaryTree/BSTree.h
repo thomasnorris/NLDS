@@ -1,5 +1,6 @@
 #include "stdlib.h" 
 #include <string>
+#include <vector>
 using namespace std;
 
 class BSTree
@@ -48,11 +49,9 @@ public:
 	~BSTree();
 
 	void Insert(MovieNode* newNode);
-	void Remove() {};
-	void ReadFromFile() {};
-	void WriteToFile() {};
-	void Search() {};
-	void Delete() {};
+	void Remove(MovieNode* nodeToRemove);
+	void Search(MovieNode* nodeToFind);
+	void GetNodesInOrder();
 private:
 protected:
 	MovieNode* Root;

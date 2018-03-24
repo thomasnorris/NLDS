@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "BSTree.h"
+#include <iostream>
 
 
 BSTree::MovieNode::MovieNode(string title, string rating, string url, int year, int runTime, MovieNode* leftNode,
@@ -137,13 +138,16 @@ BSTree::~BSTree()
 
 void BSTree::Insert(MovieNode* newNode)
 {
-	MovieNode* currentNode = new MovieNode();
+	MovieNode* currentNode;
 	auto inserted = false;
 
 	if (this->Root == nullptr)
+	{
 		this->Root = newNode;
-	else
-		currentNode = this->Root;
+		inserted = true;
+	}
+	
+	currentNode = this->Root;
 	
 	while (!inserted)
 	{
@@ -168,4 +172,20 @@ void BSTree::Insert(MovieNode* newNode)
 			else
 				currentNode = currentNode->GetRightNode();
 	}
+}
+
+void BSTree::Remove(MovieNode* nodeToRemove)
+{
+}
+
+void BSTree::Search(MovieNode* nodeToFind)
+{
+}
+
+void BSTree::GetNodesInOrder()
+{
+	if (this->Root == nullptr)
+		throw exception("The tree is empty.");
+
+
 }

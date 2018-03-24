@@ -17,12 +17,13 @@ int main()
 	movieList.push_back(new BSTree::MovieNode("It", "R", "nourl.com", 2017, 135));
 	movieList.push_back(new BSTree::MovieNode("Finding Nemo", "PG", "pirate.movies.com", 2003, 100));
 	movieList.push_back(new BSTree::MovieNode("Finding Dory", "PG", "othernetflix.com", 2016, 100));
+	movieList.push_back(new BSTree::MovieNode("Apples", "NC-17", "thisisnotamovie", 2018, 1000));
 
 	for (BSTree::MovieNode* movie : movieList)
 	{
 		tree->Insert(movie);
 	}
-
+	
     return 0;
 }
 
