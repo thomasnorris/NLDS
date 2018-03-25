@@ -56,6 +56,7 @@ public:
 private:
 protected:
 	void TraverseInOrderAndAddToVector(MovieNode* node, vector<MovieNode*> &nodeVector);
+	void DeleteNode(MovieNode* node);
 	MovieNode* Root;
 };
 
