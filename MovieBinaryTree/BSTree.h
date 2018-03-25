@@ -57,6 +57,8 @@ private:
 protected:
 	void TraverseInOrderAndAddToVector(MovieNode* node, vector<MovieNode*> &nodeVector);
 	void DeleteNode(MovieNode* node);
+	void TransplantNode(MovieNode* x, MovieNode* y);
+	MovieNode* GetMinimumSubtree(MovieNode* node);
 	MovieNode* Root;
 };
 

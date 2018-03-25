@@ -28,6 +28,10 @@ int main()
 
 	tree->SearchForNodeAndPrintMatch("Up", 2009);
 	tree->SearchForNodeAndPrintMatch("Schindler's List", 1993);
+	tree->RemoveNode("It", 2017);
+	tree->RemoveNode("Inside Out", 2014);
+
+	list = tree->GetOrderedListOfNodes();
 
     return 0;
 }

@@ -179,7 +179,12 @@ void BSTree::RemoveNode(string title, int year)
 
 	for (auto node : nodeVector)
 		if (node->GetTitle() == title && node->GetYear() == year)
+		{
 			this->DeleteNode(node);
+			return;
+		}
+
+	cout << "Movie " << title << " not found; nothing to delete." << endl << endl;
 }
 
 void BSTree::SearchForNodeAndPrintMatch(string title, int year)
@@ -225,5 +230,46 @@ void BSTree::TraverseInOrderAndAddToVector(MovieNode* node, vector<MovieNode*> &
 
 void BSTree::DeleteNode(MovieNode* node)
 {
-	// --TODO
+	if (node->GetLeftNode() == nullptr)
+		this->TransplantNode(node, node->GetRightNode());
+	else if (node->GetRightNode() == nullptr)
+		this->TransplantNode(node, node->GetLeftNode());
+
+	else
+	{
+		auto temp = this->GetMinimumSubtree(node->GetRightNode());
+		if (temp->GetParentNode() != node)
+		{
+			this->TransplantNode(node, node->GetRightNode());
+			temp->SetRightNode(node->GetRightNode());
+			temp->GetRightNode()->SetParentNode(temp);
+		}
+		this->TransplantNode(node, temp);
+		temp->SetLeftNode(node->GetLeftNode());
+		temp->GetLeftNode()->SetParentNode(temp);
+	}
+
+	cout << "Movie " << node->GetTitle() << " deleted." << endl << endl;
+}
+
+// --Transplants node y to node x
+void BSTree::TransplantNode(MovieNode* x, MovieNode* y)
+{
+	if (x->GetParentNode() == nullptr)
+		this->Root = y;
+	else if (x == x->GetParentNode()->GetLeftNode())
+		x->GetParentNode()->SetLeftNode(y);
+	else
+		x->GetParentNode()->SetRightNode(y);
+
+	if (y != nullptr)
+		y->SetParentNode(x->GetParentNode());
+}
+
+BSTree::MovieNode* BSTree::GetMinimumSubtree(MovieNode* node)
+{
+	while (node->GetLeftNode() != nullptr)
+		node = node->GetLeftNode();
+
+	return node;
 }
