@@ -55,8 +55,7 @@ public:
 	vector<MovieNode*> GetOrderedListOfNodes();
 private:
 protected:
-	void TraverseInOrder(MovieNode* node);
+	void TraverseInOrder(MovieNode* node, vector<MovieNode*> &nodeVector);
 	MovieNode* Root;
-	vector<MovieNode*> InOrderNodeList;
 };
 

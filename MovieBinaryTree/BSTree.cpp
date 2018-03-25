@@ -188,18 +188,19 @@ BSTree::MovieNode* BSTree::GetRoot()
 
 vector<BSTree::MovieNode*> BSTree::GetOrderedListOfNodes()
 {
-	TraverseInOrder(this->Root);
-	return this->InOrderNodeList;
+	vector<MovieNode*> nodeVector;
+	TraverseInOrder(this->Root, nodeVector);
+	return nodeVector;
 }
 
-void BSTree::TraverseInOrder(MovieNode* node)
+void BSTree::TraverseInOrder(MovieNode* node, vector<MovieNode*> &nodeVector)
 {
 	if (node == nullptr)
 		return;
 	
-	this->TraverseInOrder(node->GetLeftNode());
-	this->InOrderNodeList.push_back(node);
-	this->TraverseInOrder(node->GetRightNode());
+	this->TraverseInOrder(node->GetLeftNode(), nodeVector);
+	nodeVector.push_back(node);
+	this->TraverseInOrder(node->GetRightNode(), nodeVector);
 }
 
 
