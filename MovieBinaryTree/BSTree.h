@@ -48,14 +48,14 @@ public:
 	BSTree();
 	~BSTree();
 
-	void Insert(MovieNode* newNode);
-	void Remove(MovieNode* nodeToRemove);
-	void Search(MovieNode* nodeToFind);
+	void InsertNode(MovieNode* newNode);
+	void RemoveNode(string title, int year);
+	void SearchForNodeAndPrintMatch(string title, int year);
 	MovieNode* GetRoot();
 	vector<MovieNode*> GetOrderedListOfNodes();
 private:
 protected:
-	void TraverseInOrder(MovieNode* node, vector<MovieNode*> &nodeVector);
+	void TraverseInOrderAndAddToVector(MovieNode* node, vector<MovieNode*> &nodeVector);
 	MovieNode* Root;
 };
 

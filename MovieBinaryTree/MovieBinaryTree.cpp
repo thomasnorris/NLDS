@@ -21,10 +21,13 @@ int main()
 
 	for (BSTree::MovieNode* movie : movieList)
 	{
-		tree->Insert(movie);
+		tree->InsertNode(movie);
 	}
 
 	auto list = tree->GetOrderedListOfNodes();
+
+	tree->SearchForNodeAndPrintMatch("Up", 2009);
+	tree->SearchForNodeAndPrintMatch("Schindler's List", 1993);
 
     return 0;
 }
