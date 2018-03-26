@@ -3,38 +3,72 @@
 
 #include "stdafx.h"
 #include "BSTree.h"
+#include "MovieBinaryTree.h"
 #include <iostream>
 #include <vector>
+#include <fstream>
 using namespace std;
+
+const string INPUT_FILE_NAME = "movies.txt";
+const string OUTPUT_FILE_NAME = INPUT_FILE_NAME;
+const string LIST_COMMAND = "L";
+const string INSERT_COMMAND = "I";
+const string SEARCH_COMMAND = "S";
+const string DELETE_COMMAND = "D";
+const string QUIT_COMMAND = "Q";
+
+BSTree* _tree;
 
 int main()
 {
-	auto tree = new BSTree();
-	auto movieList = vector<BSTree::MovieNode*>();
+	LoadFile();
+	
+	_tree->ListInOrder();
 
-	movieList.push_back(new BSTree::MovieNode("Up", "PG", "netflix.com", 2009, 96));
-	movieList.push_back(new BSTree::MovieNode("Frozen", "PG", "seeitintheatersnearyou.org", 2013, 109));
-	movieList.push_back(new BSTree::MovieNode("It", "R", "nourl.com", 2017, 135));
-	movieList.push_back(new BSTree::MovieNode("Finding Nemo", "PG", "pirate.movies.com", 2003, 100));
-	movieList.push_back(new BSTree::MovieNode("Finding Dory", "PG", "othernetflix.com", 2016, 100));
-	movieList.push_back(new BSTree::MovieNode("Apples", "NC-17", "thisisnotamovie", 2018, 1000));
+	_tree->SearchAndPrintMatch("Up", 2009);
+	_tree->SearchAndPrintMatch("Schindler's List", 1993);
+	_tree->Delete("It", 2017);
+	_tree->Delete("Inside Out", 2014);
 
-	for (BSTree::MovieNode* movie : movieList)
-	{
-		tree->Insert(movie);
-	}
-
-	tree->ListInOrder();
-
-	tree->SearchAndPrintMatch("Up", 2009);
-	tree->SearchAndPrintMatch("Schindler's List", 1993);
-	tree->Delete("It", 2017);
-	tree->Delete("Inside Out", 2014);
-
-	tree->ListInOrder();
+	_tree->ListInOrder();
 
 	system("pause");
 
     return 0;
 }
 
+void LoadFile()
+{
+	_tree = new BSTree();
+	ifstream inputFile;
+	inputFile.open(INPUT_FILE_NAME);
+
+	if (!inputFile.good())
+		DisplayFileError(INPUT_FILE_NAME);
+
+	string line;
+	while (getline(inputFile, line))
+	{
+		auto movie = new BSTree::MovieNode();
+		movie->SetTitle(line);
+		getline(inputFile, line);
+		movie->SetRating(line);
+		getline(inputFile, line);
+		movie->SetUrl(line);
+		getline(inputFile, line);
+		movie->SetYear(stoi(line));
+		getline(inputFile, line);
+		movie->SetYear(stoi(line));
+
+		_tree->Insert(movie);
+	}
+
+	cout << "The file \"" << INPUT_FILE_NAME << "\" has loaded successfully." << endl << endl;
+}
+
+void DisplayFileError(string fileName)
+{
+	cout << "There was an issue opening the file \"" << fileName << "\". Please check the file and try again." << endl << endl;
+	system("pause");
+	_Exit(0);
+}
