@@ -22,15 +22,28 @@ BSTree* _tree;
 int main()
 {
 	LoadFile();
-	
-	_tree->ListInOrder();
+
+	cout << "There are a number of commands that can be entered:" << endl;
+	string command;
+	while (command != QUIT_COMMAND)
+	{
+		cout << "\"" << LIST_COMMAND << "\" will list all movies currently stored in the tree." << endl;
+		cout << "\"" << INSERT_COMMAND << "\" will further prompt to insert a movie into the tree." << endl;
+		cout << "\"" << SEARCH_COMMAND << "\" will further prompt to search for a movie stored in the tree." << endl;
+		cout << "\"" << DELETE_COMMAND << "\" will further prompt to delete a movie from the tree." << endl;
+		cout << "\"" << QUIT_COMMAND << "\" will save the movies in the tree in order to \"" << OUTPUT_FILE_NAME << "\" and quit the program" << endl;
+
+		cout << "Enter one of the commands and press \"Enter\": ";
+		cin >> command;
+	}
+	/*_tree->ListInOrder();
 
 	_tree->SearchAndPrintMatch("Up", 2009);
 	_tree->SearchAndPrintMatch("Schindler's List", 1993);
 	_tree->Delete("It", 2017);
 	_tree->Delete("Inside Out", 2014);
 
-	_tree->ListInOrder();
+	_tree->ListInOrder();*/
 
 	system("pause");
 
