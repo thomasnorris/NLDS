@@ -48,15 +48,16 @@ public:
 	BSTree();
 	~BSTree();
 
-	void InsertNode(MovieNode* newNode);
-	void RemoveNode(string title, int year);
-	void SearchForNodeAndPrintMatch(string title, int year);
+	void Insert(MovieNode* newNode);
+	void Delete(string title, int year);
+	void SearchAndPrintMatch(string title, int year);
+	void ListInOrder();
 	MovieNode* GetRoot();
-	vector<MovieNode*> GetOrderedListOfNodes();
 private:
 protected:
+	vector<MovieNode*> BuildVectorOfNodesInOrder();
 	void TraverseInOrderAndAddToVector(MovieNode* node, vector<MovieNode*> &nodeVector);
-	void DeleteNode(MovieNode* node);
+	void DeleteInternal(MovieNode* node);
 	void TransplantNode(MovieNode* x, MovieNode* y);
 	MovieNode* GetMinimumSubtree(MovieNode* node);
 	MovieNode* Root;

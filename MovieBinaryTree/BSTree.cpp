@@ -135,7 +135,7 @@ BSTree::~BSTree()
 	}
 }
 
-void BSTree::InsertNode(MovieNode* newNode)
+void BSTree::Insert(MovieNode* newNode)
 {
 	MovieNode* currentNode;
 	auto inserted = false;
@@ -173,23 +173,23 @@ void BSTree::InsertNode(MovieNode* newNode)
 	}
 }
 
-void BSTree::RemoveNode(string title, int year)
+void BSTree::Delete(string title, int year)
 {
-	auto nodeVector = this->GetOrderedListOfNodes();
+	auto nodeVector = this->BuildVectorOfNodesInOrder();
 
 	for (auto node : nodeVector)
 		if (node->GetTitle() == title && node->GetYear() == year)
 		{
-			this->DeleteNode(node);
+			this->DeleteInternal(node);
 			return;
 		}
 
 	cout << "Movie " << title << " not found; nothing to delete." << endl << endl;
 }
 
-void BSTree::SearchForNodeAndPrintMatch(string title, int year)
+void BSTree::SearchAndPrintMatch(string title, int year)
 {
-	auto nodeVector = this->GetOrderedListOfNodes();
+	auto nodeVector = this->BuildVectorOfNodesInOrder();
 
 	for (auto node : nodeVector)
 		if (node->GetTitle() == title && node->GetYear() == year)
@@ -199,11 +199,25 @@ void BSTree::SearchForNodeAndPrintMatch(string title, int year)
 			cout << "Rating: " << node->GetRating() << endl;
 			cout << "URL: " << node->GetUrl() << endl;
 			cout << "Year: " << node->GetYear() << endl;
-			cout << "Run Time: " << node->GetRunTime() << "Minutes" << endl << endl;
+			cout << "Run Time: " << node->GetRunTime() << "minutes" << endl << endl;
 			return;
 		}
 
-	cout << "No match found." << endl << endl;
+	cout << "No match found for movie " << title << " and year " << year << "." << endl << endl;
+}
+
+void BSTree::ListInOrder()
+{
+	auto nodeVector = this->BuildVectorOfNodesInOrder();
+
+	for (auto node : nodeVector)
+	{
+		cout << "Title: " << node->GetTitle() << endl;
+		cout << "Rating: " << node->GetRating() << endl;
+		cout << "URL: " << node->GetUrl() << endl;
+		cout << "Year: " << node->GetYear() << endl;
+		cout << "Run Time: " << node->GetRunTime() << "minutes" << endl << endl;
+	}
 }
 
 BSTree::MovieNode* BSTree::GetRoot()
@@ -211,7 +225,7 @@ BSTree::MovieNode* BSTree::GetRoot()
 	return this->Root;
 }
 
-vector<BSTree::MovieNode*> BSTree::GetOrderedListOfNodes()
+vector<BSTree::MovieNode*> BSTree::BuildVectorOfNodesInOrder()
 {
 	vector<MovieNode*> nodeVector;
 	this->TraverseInOrderAndAddToVector(this->Root, nodeVector);
@@ -228,7 +242,7 @@ void BSTree::TraverseInOrderAndAddToVector(MovieNode* node, vector<MovieNode*> &
 	this->TraverseInOrderAndAddToVector(node->GetRightNode(), nodeVector);
 }
 
-void BSTree::DeleteNode(MovieNode* node)
+void BSTree::DeleteInternal(MovieNode* node)
 {
 	if (node->GetLeftNode() == nullptr)
 		this->TransplantNode(node, node->GetRightNode());

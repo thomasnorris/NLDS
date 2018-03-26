@@ -21,17 +21,19 @@ int main()
 
 	for (BSTree::MovieNode* movie : movieList)
 	{
-		tree->InsertNode(movie);
+		tree->Insert(movie);
 	}
 
-	auto list = tree->GetOrderedListOfNodes();
+	tree->ListInOrder();
 
-	tree->SearchForNodeAndPrintMatch("Up", 2009);
-	tree->SearchForNodeAndPrintMatch("Schindler's List", 1993);
-	tree->RemoveNode("It", 2017);
-	tree->RemoveNode("Inside Out", 2014);
+	tree->SearchAndPrintMatch("Up", 2009);
+	tree->SearchAndPrintMatch("Schindler's List", 1993);
+	tree->Delete("It", 2017);
+	tree->Delete("Inside Out", 2014);
 
-	list = tree->GetOrderedListOfNodes();
+	tree->ListInOrder();
+
+	system("pause");
 
     return 0;
 }
