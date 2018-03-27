@@ -59,12 +59,7 @@ int main()
 		}
 	}
 
-	/*_tree->SearchAndPrintMatch("Up", 2009);
-	_tree->SearchAndPrintMatch("Schindler's List", 1993);
-	_tree->Delete("It", 2017);
-	_tree->Delete("Inside Out", 2014);
-
-	_tree->ListInOrder();*/
+	SaveFile();
 
 	system("pause");
 
@@ -92,7 +87,7 @@ void LoadFile()
 		getline(inputFile, line);
 		movie->SetYear(stoi(line));
 		getline(inputFile, line);
-		movie->SetYear(stoi(line));
+		movie->SetRunTime(stoi(line));
 
 		_tree->Insert(movie);
 	}
@@ -136,10 +131,31 @@ BSTree::MovieNode* PromptForMovieTitleAndDate(string commandName)
 	string title;
 	int year;
 
-	cout << "Enter the name of a movie for which to " << commandName << " (case sensitive): " << endl;
+	cout << "Enter the name of a movie for which to " << commandName << " (case sensitive): ";
 	cin >> title;
-	cout << "Enter the year the movie was released: " << endl;
+	cout << "Enter the year the movie was released: ";
 	cin >> year;
 
 	return new BSTree::MovieNode(title, year);
+}
+
+void SaveFile()
+{
+	ofstream outputFile;
+	outputFile.open(OUTPUT_FILE_NAME);
+
+	if (!outputFile.good())
+		DisplayFileError(OUTPUT_FILE_NAME);
+
+	auto movies = _tree->GetVectorOfNodesInOrder();
+	for (auto movie : movies) 
+	{
+		outputFile << movie->GetTitle() << endl;
+		outputFile << movie->GetRating() << endl;
+		outputFile << movie->GetUrl() << endl;
+		outputFile << movie->GetYear() << endl;
+		outputFile << movie->GetRunTime() << endl;
+	}
+
+	cout << "File \"" << OUTPUT_FILE_NAME << "\" saved successfully." << endl;
 }
