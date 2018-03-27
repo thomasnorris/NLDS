@@ -171,6 +171,8 @@ void BSTree::Insert(MovieNode* newNode)
 			else
 				currentNode = currentNode->GetRightNode();
 	}
+
+	cout << "Movie " << newNode->GetTitle() << " added successfully." << endl << endl; 
 }
 
 void BSTree::Delete(string title, int year)

@@ -5,3 +5,4 @@ using namespace std;
 
 void LoadFile();
 void DisplayFileError(string fileName);
+void PromptForMovieInformation();

@@ -22,7 +22,7 @@ BSTree* _tree;
 int main()
 {
 	LoadFile();
-
+	
 	cout << "There are a number of commands that can be entered:" << endl;
 	string command;
 	while (command != QUIT_COMMAND)
@@ -35,10 +35,19 @@ int main()
 
 		cout << "Enter one of the commands and press \"Enter\": ";
 		cin >> command;
-	}
-	/*_tree->ListInOrder();
 
-	_tree->SearchAndPrintMatch("Up", 2009);
+		if (command == LIST_COMMAND)
+		{
+			if (_tree->GetRoot() == nullptr)
+				cout << "The tree has no movies to list." << endl << endl;
+			else
+				_tree->ListInOrder();
+		}
+		else if (command == INSERT_COMMAND)
+			PromptForMovieInformation();
+	}
+
+	/*_tree->SearchAndPrintMatch("Up", 2009);
 	_tree->SearchAndPrintMatch("Schindler's List", 1993);
 	_tree->Delete("It", 2017);
 	_tree->Delete("Inside Out", 2014);
@@ -84,4 +93,28 @@ void DisplayFileError(string fileName)
 	cout << "There was an issue opening the file \"" << fileName << "\". Please check the file and try again." << endl << endl;
 	system("pause");
 	_Exit(0);
+}
+
+void PromptForMovieInformation()
+{
+	string line;
+	BSTree::MovieNode* newMovie = new BSTree::MovieNode();
+
+	cout << "Enter the title of the movie: ";
+	cin >> line;
+	newMovie->SetTitle(line);
+	cout << "Enter the MPAA Rating of the movie: ";
+	cin >> line;
+	newMovie->SetRating(line);
+	cout << "Enter the URL to stream the movie: ";
+	cin >> line;
+	newMovie->SetUrl(line);
+	cout << "Enter the year the movie came out: ";
+	cin >> line;
+	newMovie->SetYear(stoi(line));
+	cout << "Enter the run time (in minutes) of the movie: ";
+	cin >> line;
+	newMovie->SetRunTime(stoi(line));
+
+	_tree->Insert(newMovie);
 }
