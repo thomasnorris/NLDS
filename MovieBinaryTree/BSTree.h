@@ -9,7 +9,7 @@ public:
 	class MovieNode
 	{
 	public:
-		MovieNode(string title = "", string rating = "", string url = "", int year = 0000, int runTime = 0,
+		MovieNode(string title = "", int year = 0000, string rating = "", string url = "", int runTime = 0,
 		          MovieNode* leftNode = nullptr, MovieNode* rightNode = nullptr, MovieNode* parentNode = nullptr);
 		~MovieNode() {};
 		// --Getters

@@ -31,9 +31,9 @@ int main()
 		cout << "\"" << INSERT_COMMAND << "\" will further prompt to insert a movie into the tree." << endl;
 		cout << "\"" << SEARCH_COMMAND << "\" will further prompt to search for a movie stored in the tree." << endl;
 		cout << "\"" << DELETE_COMMAND << "\" will further prompt to delete a movie from the tree." << endl;
-		cout << "\"" << QUIT_COMMAND << "\" will save the movies in the tree in order to \"" << OUTPUT_FILE_NAME << "\" and quit the program" << endl;
+		cout << "\"" << QUIT_COMMAND << "\" will save the movies in the tree in order to \"" << OUTPUT_FILE_NAME << "\" and quit the program." << endl << endl;
 
-		cout << "Enter one of the commands and press \"Enter\": ";
+		cout << "Enter one of the commands and press \"Enter\" (case sensitive): ";
 		cin >> command;
 
 		if (command == LIST_COMMAND)
@@ -44,7 +44,19 @@ int main()
 				_tree->ListInOrder();
 		}
 		else if (command == INSERT_COMMAND)
-			PromptForMovieInformation();
+			PromptForMovieInfoAndAddToTree();
+
+		else if (command == SEARCH_COMMAND)
+		{
+			auto movieToSearch = PromptForMovieTitleAndDate("search");
+			_tree->SearchAndPrintMatch(movieToSearch->GetTitle(), movieToSearch->GetYear());
+		}
+
+		else if (command == DELETE_COMMAND)
+		{
+			auto movieToDelete = PromptForMovieTitleAndDate("delete");
+			_tree->Delete(movieToDelete->GetTitle(), movieToDelete->GetYear());
+		}
 	}
 
 	/*_tree->SearchAndPrintMatch("Up", 2009);
@@ -95,7 +107,7 @@ void DisplayFileError(string fileName)
 	_Exit(0);
 }
 
-void PromptForMovieInformation()
+void PromptForMovieInfoAndAddToTree()
 {
 	string line;
 	BSTree::MovieNode* newMovie = new BSTree::MovieNode();
@@ -117,4 +129,17 @@ void PromptForMovieInformation()
 	newMovie->SetRunTime(stoi(line));
 
 	_tree->Insert(newMovie);
+}
+
+BSTree::MovieNode* PromptForMovieTitleAndDate(string commandName)
+{
+	string title;
+	int year;
+
+	cout << "Enter the name of a movie for which to " << commandName << " (case sensitive): " << endl;
+	cin >> title;
+	cout << "Enter the year the movie was released: " << endl;
+	cin >> year;
+
+	return new BSTree::MovieNode(title, year);
 }

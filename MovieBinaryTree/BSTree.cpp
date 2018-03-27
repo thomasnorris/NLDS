@@ -2,7 +2,7 @@
 #include "BSTree.h"
 #include <iostream>
 
-BSTree::MovieNode::MovieNode(string title, string rating, string url, int year, int runTime, MovieNode* leftNode,
+BSTree::MovieNode::MovieNode(string title, int year, string rating, string url, int runTime, MovieNode* leftNode,
 	MovieNode* rightNode, MovieNode* parentNode)
 {
 	this->Title = title;
@@ -172,7 +172,7 @@ void BSTree::Insert(MovieNode* newNode)
 				currentNode = currentNode->GetRightNode();
 	}
 
-	cout << "Movie " << newNode->GetTitle() << " added successfully." << endl << endl; 
+	cout << "Movie \"" << newNode->GetTitle() << "\" added successfully." << endl << endl;
 }
 
 void BSTree::Delete(string title, int year)
@@ -186,7 +186,7 @@ void BSTree::Delete(string title, int year)
 			return;
 		}
 
-	cout << "Movie " << title << " not found; nothing to delete." << endl << endl;
+	cout << "Movie \"" << title << "\" not found; nothing to delete." << endl << endl;
 }
 
 void BSTree::SearchAndPrintMatch(string title, int year)
@@ -205,7 +205,7 @@ void BSTree::SearchAndPrintMatch(string title, int year)
 			return;
 		}
 
-	cout << "No match found for movie " << title << " and year " << year << "." << endl << endl;
+	cout << "No match found for movie \"" << title << "\" released in \"" << year << "\"." << endl << endl;
 }
 
 void BSTree::ListInOrder()
@@ -218,7 +218,7 @@ void BSTree::ListInOrder()
 		cout << "Rating: " << node->GetRating() << endl;
 		cout << "URL: " << node->GetUrl() << endl;
 		cout << "Year: " << node->GetYear() << endl;
-		cout << "Run Time: " << node->GetRunTime() << "minutes" << endl << endl;
+		cout << "Run Time: " << node->GetRunTime() << " minutes" << endl << endl;
 	}
 }
 

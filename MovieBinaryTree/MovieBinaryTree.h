@@ -5,4 +5,5 @@ using namespace std;
 
 void LoadFile();
 void DisplayFileError(string fileName);
-void PromptForMovieInformation();
+void PromptForMovieInfoAndAddToTree();
+BSTree::MovieNode* PromptForMovieTitleAndDate(string commandName);
