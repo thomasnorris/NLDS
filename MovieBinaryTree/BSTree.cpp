@@ -15,6 +15,18 @@ BSTree::MovieNode::MovieNode(string title, int year, string rating, string url, 
 	this->ParentNode = parentNode;
 }
 
+BSTree::MovieNode::MovieNode(MovieNode &orig)
+{
+	this->Title = orig.GetTitle();
+	this->Rating = orig.GetRating();
+	this->Url = orig.GetUrl();
+	this->Year = orig.GetYear();
+	this->RunTime = orig.GetRunTime();
+	this->LeftNode = orig.GetLeftNode();
+	this->RightNode = orig.GetRightNode();
+	this->ParentNode = orig.GetParentNode();
+}
+
 string BSTree::MovieNode::GetTitle()
 {
 	return this->Title;

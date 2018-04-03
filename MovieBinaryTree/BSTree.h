@@ -11,6 +11,7 @@ public:
 	public:
 		MovieNode(string title = "", int year = 0000, string rating = "", string url = "", int runTime = 0,
 		          MovieNode* leftNode = nullptr, MovieNode* rightNode = nullptr, MovieNode* parentNode = nullptr);
+		MovieNode(MovieNode &orig);
 		~MovieNode() {};
 		// --Getters
 		string GetTitle();
