@@ -211,7 +211,7 @@ void BSTree::SearchAndPrintMatch(string title, int year)
 	for (auto node : nodeVector)
 		if (node->GetTitle() == title && node->GetYear() == year)
 		{
-			cout << "Match found!" << endl;
+			cout << endl << "Match found!" << endl;
 			cout << "Title: " << node->GetTitle() << endl;
 			cout << "Rating: " << node->GetRating() << endl;
 			cout << "URL: " << node->GetUrl() << endl;
