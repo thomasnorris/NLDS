@@ -124,6 +124,8 @@ void PromptForMovieInfoAndAddToTree()
 	newMovie->SetRunTime(stoi(line));
 
 	_tree->Insert(newMovie);
+
+	cout << endl << "Movie \"" << newMovie->GetTitle() << "\" added successfully." << endl << endl;
 }
 
 BSTree::MovieNode* PromptForMovieTitleAndDate(string commandName)

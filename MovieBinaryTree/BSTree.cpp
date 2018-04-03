@@ -176,8 +176,6 @@ void BSTree::Insert(MovieNode* newNode)
 			else
 				currentNode = currentNode->GetRightNode();
 	}
-
-	cout << "Movie \"" << newNode->GetTitle() << "\" added successfully." << endl << endl;
 }
 
 void BSTree::Delete(string title, int year)
@@ -191,7 +189,7 @@ void BSTree::Delete(string title, int year)
 			return;
 		}
 
-	cout << "Movie \"" << title << "\" not found; nothing to delete." << endl << endl;
+	cout << endl << "Movie \"" << title << "\" not found; nothing to delete." << endl << endl;
 }
 
 void BSTree::SearchAndPrintMatch(string title, int year)
@@ -210,7 +208,7 @@ void BSTree::SearchAndPrintMatch(string title, int year)
 			return;
 		}
 
-	cout << "No match found for movie \"" << title << "\" released in \"" << year << "\"." << endl << endl;
+	cout << endl << "No match found for movie \"" << title << "\" released in \"" << year << "\"." << endl << endl;
 }
 
 void BSTree::ListInOrder()
@@ -270,7 +268,7 @@ void BSTree::DeleteInternal(MovieNode* node)
 		temp->GetLeftNode()->SetParentNode(temp);
 	}
 
-	cout << "Movie " << node->GetTitle() << " deleted." << endl << endl;
+	cout << endl << "Movie " << node->GetTitle() << " deleted." << endl << endl;
 }
 
 // --Transplants node y to node x
